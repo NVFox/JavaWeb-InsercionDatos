@@ -4,6 +4,12 @@
     Author     : SENA
 --%>
 
+<%@page import="java.util.Arrays"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="controlador.DataMethods"%>
+<%@page import="modelo.Tabla"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.DatosDAO"%>
 <%@page import="controlador.Conexion"%>
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,5 +47,31 @@
                 Guardar Registro
             </button>
         </form>
+        <%
+            DatosDAO data = new DatosDAO();
+
+            String nombreOriginal = "btn-main-usuarios";
+            String nombreTabla = nombreOriginal.replace("btn-main-", "");
+            String[] camposFinales = new String[]{"DocCli", "NomUsu", "Clave", "Rol", "Estado", "Imagen"};
+
+            Tabla tabla = data.consultarDatos(nombreTabla, camposFinales);
+            ArrayList<String[]> valores = tabla.getValoresTotales();
+        %>
+        <table>
+            <thead>
+                <tr>
+                    <% for (int i = 0; i < camposFinales.length; i++) {%>
+                        <th><%= camposFinales[i]%></th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (int i = 0; i < valores.size(); i++) { %>
+                <tr>
+                    <td><%= Arrays.toString(valores.get(i)) %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </body>
 </html>

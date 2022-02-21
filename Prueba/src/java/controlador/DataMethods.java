@@ -23,11 +23,12 @@ public class DataMethods {
     }
     
     public ArrayList<String> recolectarNombres(HttpServletRequest request, HttpServletResponse response) {
-        ArrayList<String> parameterNames = new ArrayList<String>();
+        ArrayList<String> parameterNames = new ArrayList<>();
         Enumeration enumeration = request.getParameterNames();
         
         while (enumeration.hasMoreElements()) {
             String parameterName = (String) enumeration.nextElement();
+            JOptionPane.showMessageDialog(null, parameterName);
             parameterNames.add(parameterName);
         }
         

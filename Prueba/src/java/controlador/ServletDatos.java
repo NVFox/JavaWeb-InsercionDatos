@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import modelo.DatosDAO;
 import modelo.Tabla;
@@ -38,23 +39,25 @@ public class ServletDatos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         DataMethods data = new DataMethods();
-        
+
         ArrayList<String> campos = data.recolectarNombres(request, response);
         String nombreOriginal = campos.get(campos.size() - 1);
         String nombreTabla = nombreOriginal.replace("btn-main-", "");
-        
+
         campos.remove(campos.size() - 1);
         String[] camposFinales = campos.toArray(new String[0]);
-                
-        String[] valores = data.recolectarDatos(nombreOriginal, camposFinales, request, response);
-
-        Tabla tabla = new Tabla(nombreTabla, camposFinales, valores);
         DatosDAO dao = new DatosDAO();
-        
+
         JOptionPane.showMessageDialog(null, Arrays.toString(camposFinales));
 
-        if (dao.insertarDato(tabla.getNombreTabla(), tabla.getValoresTabla())) {
-            JOptionPane.showMessageDialog(null, "Datos Insertados");
+        if (request.getParameter(nombreOriginal) != null) {
+            String[] valores = data.recolectarDatos(nombreOriginal, camposFinales, request, response);
+
+            Tabla tabla = new Tabla(nombreTabla, camposFinales, valores);
+            
+            if (dao.insertarDato(tabla.getNombreTabla(), tabla.getValoresTabla())) {
+                JOptionPane.showMessageDialog(null, "Datos Insertados");
+            }
         }
 
     }

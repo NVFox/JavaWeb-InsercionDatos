@@ -1,14 +1,23 @@
 package modelo;
 
+import java.util.ArrayList;
+
 public class Tabla {
     private String nombreTabla;
     private String[] camposTabla;
     private String[] valoresTabla;
+    private ArrayList<String[]> valoresTotales;
 
     public Tabla(String nombreTabla, String[] camposTabla, String[] valoresTabla) {
         this.nombreTabla = nombreTabla;
         this.camposTabla = camposTabla;
         this.valoresTabla = valoresTabla;
+    }
+    
+    public Tabla(String nombreTabla, String[] camposTabla, ArrayList<String[]> valoresTotales) {
+        this.nombreTabla = nombreTabla;
+        this.camposTabla = camposTabla;
+        this.valoresTotales = valoresTotales;
     }
 
     public String getNombreTabla() {
@@ -34,4 +43,14 @@ public class Tabla {
     public void setValoresTabla(String[] valoresTabla) {
         this.valoresTabla = valoresTabla;
     }
+
+    public ArrayList<String[]> getValoresTotales() {
+        return valoresTotales;
+    }
+
+    public void setValoresTotales(ArrayList<String[]> valoresTotales) {
+        this.valoresTotales = valoresTotales;
+    }
+    
+    
 }
