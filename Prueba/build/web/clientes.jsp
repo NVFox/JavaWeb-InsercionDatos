@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 18/02/2022, 1:27:11 p. m.
-    Author     : SENA
+    Document   : clientes
+    Created on : 21/02/2022, 12:30:22 a. m.
+    Author     : usuario
 --%>
 
 <%@page import="controlador.Conexion"%>
@@ -17,27 +17,30 @@
     <body>
         <form action="ServletDatos" method="post">
             <div class="form1">
-                <legend>Formulario de Usuarios</legend>
+                <legend>Formulario de Clientes</legend>
             </div>
             <div class="form1">
                 <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="NomUsu" placeholder="Nombre de Usuario" class="campo" required>
+                <input type="text" name="NomCli" placeholder="Nombre" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Clave" placeholder="Clave" class="campo" required>
+                <input type="text" name="ApeCli" placeholder="Apellido" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Rol" placeholder="Rol" class="campo" required>
+                <input type="email" name="CorreoCli" placeholder="Correo" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Estado" placeholder="Estado" class="campo" required>
+                <input type="text" name="CelularCli" placeholder="Celular" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Imagen" placeholder="Imagen" class="campo" required>
+                <input type="text" name="SexoCli" placeholder="Sexo" class="campo" required>
             </div>
-            <button type="submit" class="btn-main" name="btn-main-usuarios">
+            <div class="form1">
+                <input type="text" name="FechaNacCli" placeholder="Fecha de Nacimiento" class="campo" required>
+            </div>
+            <button type="submit" class="btn-main" name="btn-main-clientes">
                 Guardar Registro
             </button>
         </form>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 18/02/2022, 1:27:11 p. m.
-    Author     : SENA
+    Document   : creditos
+    Created on : 21/02/2022, 12:30:51 a. m.
+    Author     : usuario
 --%>
 
 <%@page import="controlador.Conexion"%>
@@ -17,27 +17,27 @@
     <body>
         <form action="ServletDatos" method="post">
             <div class="form1">
-                <legend>Formulario de Usuarios</legend>
+                <legend>Formulario de Créditos</legend>
+            </div>
+            <div class="form1">
+                <input type="text" name="CodigoCredito" placeholder="Código de Crédito" class="campo" required>
             </div>
             <div class="form1">
                 <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="NomUsu" placeholder="Nombre de Usuario" class="campo" required>
+                <input type="text" name="CodLinea" placeholder="Codigo de Línea" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Clave" placeholder="Clave" class="campo" required>
+                <input type="text" name="MontoPrestado" placeholder="Monto Prestado" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Rol" placeholder="Rol" class="campo" required>
+                <input type="text" name="FechaAproba" placeholder="Fecha de Aprobación" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="Estado" placeholder="Estado" class="campo" required>
+                <input type="text" name="Plazo" placeholder="Plazo" class="campo" required>
             </div>
-            <div class="form1">
-                <input type="text" name="Imagen" placeholder="Imagen" class="campo" required>
-            </div>
-            <button type="submit" class="btn-main" name="btn-main-usuarios">
+            <button type="submit" class="btn-main" name="btn-main-creditos">
                 Guardar Registro
             </button>
         </form>

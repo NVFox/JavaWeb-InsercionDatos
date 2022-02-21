@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="estilos.css"/>
     </head>
     <body>
-        <form action="ServletUsuario" method="post">
+        <form action="ServletDatos" method="post">
             <div class="form1">
                 <legend>Formulario de Usuarios</legend>
             </div>
@@ -37,7 +37,7 @@
             <div class="form1">
                 <input type="text" name="Imagen" placeholder="Imagen" class="campo" required>
             </div>
-            <button type="submit" class="btn-main" name="btn-main">
+            <button type="submit" class="btn-main" name="btn-main-usuarios">
                 Guardar Registro
             </button>
         </form>
