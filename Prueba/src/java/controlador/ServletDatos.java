@@ -42,22 +42,42 @@ public class ServletDatos extends HttpServlet {
 
         ArrayList<String> campos = data.recolectarNombres(request, response);
         String nombreOriginal = campos.get(campos.size() - 1);
-        String nombreTabla = nombreOriginal.replace("btn-main-", "");
-
-        campos.remove(campos.size() - 1);
-        String[] camposFinales = campos.toArray(new String[0]);
+        String nombreTabla = nombreOriginal.replaceAll("btn-(\\w+)-", "");
+        
+        String[] camposFinales = data.conseguirCamposFinales(campos);
         DatosDAO dao = new DatosDAO();
 
-        JOptionPane.showMessageDialog(null, Arrays.toString(camposFinales));
-
-        if (request.getParameter(nombreOriginal) != null) {
-            String[] valores = data.recolectarDatos(nombreOriginal, camposFinales, request, response);
+        if (request.getParameter("btn-main-" + nombreTabla) != null) {
+            String[] valores = data.recolectarDatos(camposFinales, request, response).get(1);
 
             Tabla tabla = new Tabla(nombreTabla, camposFinales, valores);
             
             if (dao.insertarDato(tabla.getNombreTabla(), tabla.getValoresTabla())) {
                 JOptionPane.showMessageDialog(null, "Datos Insertados");
             }
+        } else if (request.getParameter("btn-update-" + nombreTabla) != null) {
+            ArrayList<String[]> valores = data.recolectarDatos(camposFinales, request, response);
+            camposFinales = valores.get(0);
+            String[] valoresFinales = valores.get(1);
+
+            Tabla tabla = new Tabla(nombreTabla, camposFinales, valoresFinales);
+            
+            if (dao.actualizarDato(tabla.getNombreTabla(), tabla.getCamposTabla(), tabla.getValoresTabla())) {
+                JOptionPane.showMessageDialog(null, "Datos Actualizados");
+            }
+        } else if (request.getParameter("btn-delete-" + nombreTabla) != null) {
+            String campoPrincipal = camposFinales[0];
+            String codigo = request.getParameter(campoPrincipal);
+            
+            if (dao.borrarDato(nombreTabla, campoPrincipal, codigo)) {
+                JOptionPane.showMessageDialog(null, "Datos Eliminados");
+            }
+        }
+        
+        if (nombreTabla.equals("usuarios")) {
+            response.sendRedirect("http://localhost:8080/Prueba");
+        } else {
+            response.sendRedirect(nombreTabla);
         }
 
     }

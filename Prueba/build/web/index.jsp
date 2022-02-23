@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formulario</title>
-        <link rel="stylesheet" href="./css/estilos.css"/>
+        <link rel="stylesheet" href="estilos.css"/>
     </head>
     <body>
         <form action="ServletDatos" method="post">
@@ -29,22 +29,28 @@
                 <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="NomUsu" placeholder="Nombre de Usuario" class="campo" required>
+                <input type="text" name="NomUsu" placeholder="Nombre de Usuario" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="Clave" placeholder="Clave" class="campo" required>
+                <input type="text" name="Clave" placeholder="Clave" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="Rol" placeholder="Rol" class="campo" required>
+                <input type="text" name="Rol" placeholder="Rol" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="Estado" placeholder="Estado" class="campo" required>
+                <input type="text" name="Estado" placeholder="Estado" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="Imagen" placeholder="Imagen" class="campo" required>
+                <input type="text" name="Imagen" placeholder="Imagen" class="campo">
             </div>
             <button type="submit" class="btn-main" name="btn-main-usuarios">
                 Guardar Registro
+            </button>
+            <button type="submit" class="btn-main" name="btn-update-usuarios">
+                Actualizar Registro
+            </button>
+            <button type="submit" class="btn-main" name="btn-delete-usuarios">
+                Borrar Registro
             </button>
         </form>
         <%

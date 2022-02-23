@@ -13,10 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     box-sizing: border-box;
 }
 
-html{
-    height: 100vh;
-}
-
 a{
     text-decoration: none;
     color: rgba(0, 0, 0, 0.7);
@@ -26,6 +22,7 @@ body{
     background: linear-gradient(to top, rgb(206, 229, 208) 20%, rgb(243, 240, 215) 100%);
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
 }
 
 .contenedor{
@@ -112,7 +109,7 @@ body{
 }
 
 form {
-    margin: auto;
+    margin: 50px auto;
     width: 50%;
     display: flex;
     align-items: center;
@@ -143,12 +140,18 @@ legend {
     padding-right: 20px;
 }
 
+table{
+    width: 90%;
+    margin: 0 auto 50px;
+}
+
 td{
     padding: 5px;
     border: 1px solid black;
     font-family: 'Roboto', sans-serif;
     border-radius: 2px;
     text-align: center;
+    background: white;
 }
 
 td > input {
@@ -188,6 +191,7 @@ select{
     padding: 10px;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
+    margin: 15px 0 0;
 }
 
 .cont-menu{

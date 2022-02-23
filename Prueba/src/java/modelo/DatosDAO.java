@@ -66,4 +66,46 @@ public class DatosDAO {
             return null;
         }
     }
+    
+    public boolean borrarDato(String nombreTabla, String campoPrincipal, String codigo) {
+        try {
+            ps = cnn.prepareStatement("DELETE FROM " + nombreTabla + " WHERE " + campoPrincipal + " = ?");
+            ps.setString(1, codigo);
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error borrando " + ex);
+            return false;
+        }
+    }
+    
+    public boolean actualizarDato(String nombreTabla, Object[] campos, Object[] valores) {
+        String stm = "UPDATE " + nombreTabla + " SET ";
+        for (int i = 1; i < campos.length; i++) {
+            if (i == (campos.length - 1)) {
+                stm += campos[i] + " = ? ";
+            } else {
+                stm += campos[i] + " = ?, ";
+            }
+        }
+        
+        stm += "WHERE " + campos[0] + " = ?";
+        
+        JOptionPane.showMessageDialog(null, stm);
+        
+        try {  
+            ps = cnn.prepareStatement(stm);        
+            for (int i = 1; i < valores.length; i++) {
+                ps.setObject(i, valores[i]);
+            }
+            ps.setObject(valores.length, valores[0]);
+            
+            return ps.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error actualizando " + ex);
+            JOptionPane.showMessageDialog(null, stm);
+            return false;
+        }
+
+    }
 }

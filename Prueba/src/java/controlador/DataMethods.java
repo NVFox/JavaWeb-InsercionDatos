@@ -8,30 +8,43 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 
 public class DataMethods {
-    public String[] recolectarDatos(String btnNombre, String[] campos, HttpServletRequest request, HttpServletResponse response) {
-        String[] valores = new String[campos.length];
 
-        if (request.getParameter(btnNombre) != null) {
-            for (int i = 0; i < campos.length; i++){
-                valores[i] = request.getParameter(campos[i]);
+    public ArrayList<String[]> recolectarDatos(String[] campos, HttpServletRequest request, HttpServletResponse response) {
+        ArrayList<String[]> totales = new ArrayList<>();
+        ArrayList<String> camposTotales = new ArrayList<>();
+        ArrayList<String> valores = new ArrayList<>();
+
+        for (int i = 0; i < campos.length; i++) {
+            String item = request.getParameter(campos[i]);
+
+            if (item != null && !item.equals("")) {
+                camposTotales.add(campos[i]);
+                valores.add(item);
             }
         }
-        
-        JOptionPane.showMessageDialog(null, Arrays.toString(valores));
-        
-        return valores;
+
+        totales.add(camposTotales.toArray(new String[0]));
+        totales.add(valores.toArray(new String[0]));
+
+        return totales;
     }
     
+    public String[] conseguirCamposFinales(ArrayList<String> campos) {
+        campos.remove(campos.size() - 1);
+        String[] camposFinales = campos.toArray(new String[0]);
+        
+        return camposFinales;
+    }
+
     public ArrayList<String> recolectarNombres(HttpServletRequest request, HttpServletResponse response) {
         ArrayList<String> parameterNames = new ArrayList<>();
         Enumeration enumeration = request.getParameterNames();
-        
+
         while (enumeration.hasMoreElements()) {
             String parameterName = (String) enumeration.nextElement();
-            JOptionPane.showMessageDialog(null, parameterName);
             parameterNames.add(parameterName);
         }
-        
+
         return parameterNames;
     }
 }
