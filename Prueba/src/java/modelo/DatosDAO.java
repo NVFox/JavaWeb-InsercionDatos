@@ -53,7 +53,7 @@ public class DatosDAO {
                 String[] valoresFila = new String[campos.length];
                 
                 for (int i = 0; i < campos.length; i++) {
-                    valoresFila[i] = (String) rs.getObject(campos[i]);
+                    valoresFila[i] = rs.getObject(campos[i]).toString();
                 }
                 
                 lista.add(valoresFila);

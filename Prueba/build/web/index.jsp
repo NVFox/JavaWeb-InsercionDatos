@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formulario</title>
-        <link rel="stylesheet" href="estilos.css"/>
+        <link rel="stylesheet" href="./css/estilos.css"/>
     </head>
     <body>
         <form action="ServletDatos" method="post">
@@ -68,7 +68,10 @@
             <tbody>
                 <% for (int i = 0; i < valores.size(); i++) { %>
                 <tr>
-                    <td><%= Arrays.toString(valores.get(i)) %></td>
+                    <% String[] valoresIndividuales = valores.get(i); %>
+                    <% for (int x = 0; x < valoresIndividuales.length; x++) { %>
+                    <td><%= valoresIndividuales[x] %></td>
+                    <% } %>
                 </tr>
                 <% } %>
             </tbody>

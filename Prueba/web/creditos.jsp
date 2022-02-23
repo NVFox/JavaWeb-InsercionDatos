@@ -4,6 +4,9 @@
     Author     : usuario
 --%>
 
+<%@page import="modelo.DatosDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.Tabla"%>
 <%@page import="controlador.Conexion"%>
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formulario</title>
-        <link rel="stylesheet" href="estilos.css"/>
+        <link rel="stylesheet" href="./css/estilos.css"/>
     </head>
     <body>
         <form action="ServletDatos" method="post">
@@ -41,5 +44,34 @@
                 Guardar Registro
             </button>
         </form>
+        <%
+            DatosDAO data = new DatosDAO();
+
+            String nombreOriginal = "btn-main-creditos";
+            String nombreTabla = nombreOriginal.replace("btn-main-", "");
+            String[] camposFinales = new String[]{"CodigoCredito", "DocCli", "CodLinea", "MontoPrestado", "FechaAproba", "Plazo"};
+
+            Tabla tabla = data.consultarDatos(nombreTabla, camposFinales);
+            ArrayList<String[]> valores = tabla.getValoresTotales();
+        %>
+        <table>
+            <thead>
+                <tr>
+                    <% for (int i = 0; i < camposFinales.length; i++) {%>
+                        <th><%= camposFinales[i]%></th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (int i = 0; i < valores.size(); i++) { %>
+                <tr>
+                    <% String[] valoresIndividuales = valores.get(i); %>
+                    <% for (int x = 0; x < valoresIndividuales.length; x++) { %>
+                    <td><%= valoresIndividuales[x] %></td>
+                    <% } %>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </body>
 </html>
