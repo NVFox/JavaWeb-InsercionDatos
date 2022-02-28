@@ -13,10 +13,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     box-sizing: border-box;
 }
 
-html{
-    height: 100vh;
-}
-
 a{
     text-decoration: none;
     color: rgba(0, 0, 0, 0.7);
@@ -27,6 +23,38 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    background: rgb(216, 179, 132);
+}
+
+header h2, legend {
+    font-family: 'Montserrat', sans-serif;
+}
+
+header p {
+    font-size: 20px;
+    font-family: 'Ubuntu', sans-serif;
+    margin: auto 15px auto 0;
+}
+
+nav {
+    margin-left: 15px;
+}
+
+nav > ul {
+    display: flex;
+    align-items: center;
+}
+
+nav > ul > li {
+    list-style: none;
+    font-family: 'Montserrat', sans-serif;
+    height: fit-content;
+    margin-right: 25px;
 }
 
 .contenedor{
@@ -74,7 +102,8 @@ body{
     font-family: 'Ubuntu', sans-serif;
     background: rgb(216, 179, 132);
     border-radius: 3px;
-    border: 1px solid black
+    border: 1px solid black;
+    margin-left: auto
 }
 
 .logout:hover{
@@ -126,7 +155,6 @@ form {
 
 legend {
     font-size: 40px;
-    font-family: sans-serif;
 }
 
 .form0{
@@ -155,6 +183,7 @@ td{
     font-family: 'Roboto', sans-serif;
     border-radius: 2px;
     text-align: center;
+    background: white;
 }
 
 td > input {
@@ -194,6 +223,7 @@ select{
     padding: 10px;
     border-radius: 5px;
     font-family: 'Montserrat', sans-serif;
+    margin: 15px 0 0;
 }
 
 .cont-menu{

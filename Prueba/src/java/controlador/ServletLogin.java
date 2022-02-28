@@ -1,13 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import modelo.DatosDAO;
-import modelo.Tabla;
+import modelo.Usuario;
 
 /**
  *
- * @author SENA
+ * @author usuario
  */
-@WebServlet(name = "ServletDatos", urlPatterns = {"/ServletDatos"})
-public class ServletDatos extends HttpServlet {
+@WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
+public class ServletLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,50 +38,21 @@ public class ServletDatos extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        DataMethods data = new DataMethods();
-
-        ArrayList<String> campos = data.recolectarNombres(request, response);
-        String nombreOriginal = campos.get(campos.size() - 1);
-        String nombreTabla = nombreOriginal.replaceAll("btn-(\\w+)-", "");
-        
-        String[] camposFinales = data.conseguirCamposFinales(campos);
         DatosDAO dao = new DatosDAO();
+        HttpSession sesion = request.getSession();
 
-        if (request.getParameter("btn-main-" + nombreTabla) != null) {
-            
-            String[] valores = data.recolectarDatos(camposFinales, request, response).get(1);
-
-            Tabla tabla = new Tabla(nombreTabla, camposFinales, valores);
-            
-            if (dao.insertarDato(tabla.getNombreTabla(), tabla.getValoresTabla())) {
-                JOptionPane.showMessageDialog(null, "Datos Insertados");
-            }
-            
-        } else if (request.getParameter("btn-update-" + nombreTabla) != null) {
-            
-            ArrayList<String[]> valores = data.recolectarDatos(camposFinales, request, response);
-            camposFinales = valores.get(0);
-            String[] valoresFinales = valores.get(1);
-
-            Tabla tabla = new Tabla(nombreTabla, camposFinales, valoresFinales);
-            
-            if (dao.actualizarDato(tabla.getNombreTabla(), tabla.getCamposTabla(), tabla.getValoresTabla())) {
-                JOptionPane.showMessageDialog(null, "Datos Actualizados");
-            }
-            
-        } else if (request.getParameter("btn-delete-" + nombreTabla) != null) {
-            
-            String campoPrincipal = camposFinales[0];
-            String codigo = request.getParameter(campoPrincipal);
-            
-            if (dao.borrarDato(nombreTabla, campoPrincipal, codigo)) {
-                JOptionPane.showMessageDialog(null, "Datos Eliminados");
-            }
-            
-        }
+        String nombre = request.getParameter("NomUsu");
+        String clave = request.getParameter("Clave");
+        Usuario user = new Usuario(nombre, clave);
         
-        response.sendRedirect(nombreTabla + ".jsp");
-
+        if (dao.comprobarLogin(user.getNombre(), user.getClave())) {
+            JOptionPane.showMessageDialog(null, "Sesión Iniciada");
+            sesion.setAttribute("Usuario", user);
+            response.sendRedirect("usuarios.jsp");
+        } else {
+            JOptionPane.showMessageDialog(null, "Datos inexistentes");
+            response.sendRedirect("http://localhost:8080/Prueba");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -122,4 +93,5 @@ public class ServletDatos extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

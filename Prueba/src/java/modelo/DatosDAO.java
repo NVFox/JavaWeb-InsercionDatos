@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class DatosDAO {
@@ -18,6 +20,23 @@ public class DatosDAO {
     Connection cnn = conn.conexionDB();
     PreparedStatement ps;
     ResultSet rs;
+    
+    public boolean comprobarLogin(String nombre, String clave) {
+        try {
+            ps = cnn.prepareStatement("SELECT * FROM usuarios WHERE NomUsu = ? AND Clave = ?");
+            ps.setString(1, nombre);
+            ps.setString(2, clave);
+            rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en la consulta " + ex);
+            return false;
+        }
+    }
     
     public boolean insertarDato(String nombreTabla, Object[] campos) {
         String stm = "INSERT INTO " + nombreTabla + " VALUES(";

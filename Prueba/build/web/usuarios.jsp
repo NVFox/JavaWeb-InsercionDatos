@@ -1,12 +1,15 @@
 <%-- 
-    Document   : lineas
-    Created on : 21/02/2022, 12:31:18 a. m.
-    Author     : usuario
+    Document   : index
+    Created on : 18/02/2022, 1:27:11 p. m.
+    Author     : SENA
 --%>
 
 <%@page import="modelo.Usuario"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="controlador.DataMethods"%>
 <%@page import="modelo.Tabla"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="modelo.DatosDAO"%>
 <%@page import="controlador.Conexion"%>
 <%@page import="java.sql.Connection"%>
@@ -31,10 +34,10 @@
             <nav>
                 <ul>
                     <li><h2>Aplicación de Banco</h2></li>
-                    <li><a href="usuarios.jsp">Usuarios</a></li>
+                    <li><a href="#">Usuarios</a></li>
                     <li><a href="clientes.jsp">Clientes</a></li>
                     <li><a href="cuentas.jsp">Cuentas</a></li>
-                    <li><a href="#">Líneas</a></li>
+                    <li><a href="lineas.jsp">Líneas</a></li>
                     <li><a href="creditos.jsp">Créditos</a></li>
                 </ul>
             </nav>
@@ -44,36 +47,42 @@
         
         <form action="ServletDatos" method="post">
             <div class="form1">
-                <legend>Formulario de Líneas</legend>
+                <legend>Formulario de Usuarios</legend>
             </div>
             <div class="form1">
-                <input type="text" name="CodLinea" placeholder="Código de Línea" class="campo" required>
+                <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="NomLinea" placeholder="Nombre de Línea" class="campo" required>
+                <input type="text" name="NomUsu" placeholder="Nombre de Usuario" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="MontoMaxiCredito" placeholder="Monto Máximo" class="campo" required>
+                <input type="text" name="Clave" placeholder="Clave" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="PlazoMaxCred" placeholder="Plazo Máximo" class="campo" required>
+                <input type="text" name="Rol" placeholder="Rol" class="campo">
             </div>
-            <button type="submit" class="btn-main" name="btn-main-lineas">
+            <div class="form1">
+                <input type="text" name="Estado" placeholder="Estado" class="campo">
+            </div>
+            <div class="form1">
+                <input type="text" name="Imagen" placeholder="Imagen" class="campo">
+            </div>
+            <button type="submit" class="btn-main" name="btn-main-usuarios">
                 Guardar Registro
             </button>
-            <button type="submit" class="btn-main" name="btn-update-lineas">
+            <button type="submit" class="btn-main" name="btn-update-usuarios">
                 Actualizar Registro
             </button>
-            <button type="submit" class="btn-main" name="btn-delete-lineas">
+            <button type="submit" class="btn-main" name="btn-delete-usuarios">
                 Borrar Registro
             </button>
         </form>
         <%
             DatosDAO data = new DatosDAO();
 
-            String nombreOriginal = "btn-main-lineas";
+            String nombreOriginal = "btn-main-usuarios";
             String nombreTabla = nombreOriginal.replace("btn-main-", "");
-            String[] camposFinales = new String[]{"CodLinea", "NomLinea", "MontoMaxiCredito", "PlazoMaxCred"};
+            String[] camposFinales = new String[]{"DocCli", "NomUsu", "Clave", "Rol", "Estado", "Imagen"};
 
             Tabla tabla = data.consultarDatos(nombreTabla, camposFinales);
             ArrayList<String[]> valores = tabla.getValoresTotales();
@@ -82,16 +91,16 @@
             <thead>
                 <tr>
                     <% for (int i = 0; i < camposFinales.length; i++) {%>
-                        <th><%= camposFinales[i]%></th>
-                    <% } %>
+                    <th><%= camposFinales[i]%></th>
+                        <% } %>
                 </tr>
             </thead>
             <tbody>
                 <% for (int i = 0; i < valores.size(); i++) { %>
                 <tr>
                     <% String[] valoresIndividuales = valores.get(i); %>
-                    <% for (int x = 0; x < valoresIndividuales.length; x++) { %>
-                    <td><%= valoresIndividuales[x] %></td>
+                    <% for (int x = 0; x < valoresIndividuales.length; x++) {%>
+                    <td><%= valoresIndividuales[x]%></td>
                     <% } %>
                 </tr>
                 <% } %>
@@ -99,7 +108,7 @@
         </table>
         <% } else { %>
         <link rel="stylesheet" href="./css/login.css"/>
-
+        
         <section>
             <div class="contenedor">
                 <form action="index.html">

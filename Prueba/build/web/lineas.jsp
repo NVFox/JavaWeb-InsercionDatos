@@ -4,6 +4,7 @@
     Author     : usuario
 --%>
 
+<%@page import="modelo.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modelo.Tabla"%>
 <%@page import="modelo.DatosDAO"%>
@@ -15,9 +16,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formulario</title>
-        <link rel="stylesheet" href="estilos.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&family=Roboto:wght@500&family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="/Imagenes/favicon.ico" type="image/x-icon">
     </head>
     <body>
+        <%
+            HttpSession sesion = request.getSession();
+
+            if (sesion.getAttribute("Usuario") != null) { %>
+        <% Usuario usuario = (Usuario) sesion.getAttribute("Usuario"); %>
+        <link rel="stylesheet" href="estilos.css"/>
+        
+        <header>
+            <nav>
+                <ul>
+                    <li><h2>Aplicación de Banco</h2></li>
+                    <li><a href="usuarios.jsp">Usuarios</a></li>
+                    <li><a href="clientes.jsp">Clientes</a></li>
+                    <li><a href="cuentas.jsp">Cuentas</a></li>
+                    <li><a href="#">Líneas</a></li>
+                    <li><a href="creditos.jsp">Créditos</a></li>
+                </ul>
+            </nav>
+            <a href="ServletLogoff" class="logout">Cerrar Sesión</a>
+            <p><%= usuario.getNombre() %></p>
+        </header>
+        
         <form action="ServletDatos" method="post">
             <div class="form1">
                 <legend>Formulario de Líneas</legend>
@@ -36,6 +60,12 @@
             </div>
             <button type="submit" class="btn-main" name="btn-main-lineas">
                 Guardar Registro
+            </button>
+            <button type="submit" class="btn-main" name="btn-update-lineas">
+                Actualizar Registro
+            </button>
+            <button type="submit" class="btn-main" name="btn-delete-lineas">
+                Borrar Registro
             </button>
         </form>
         <%
@@ -67,5 +97,19 @@
                 <% } %>
             </tbody>
         </table>
+        <% } else { %>
+        <link rel="stylesheet" href="./css/login.css"/>
+
+        <section>
+            <div class="contenedor">
+                <form action="index.html">
+                    <div class="log">
+                        <h2>Debe iniciar sesión para continuar</h2>
+                    </div>
+                    <input type="submit" name="btn-login" class="btn-login" value="Iniciar Sesión">
+                </form>
+            </div>
+        </section>
+        <% }%>
     </body>
 </html>
