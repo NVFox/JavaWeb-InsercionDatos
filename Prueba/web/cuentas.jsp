@@ -12,7 +12,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formulario</title>
@@ -25,7 +25,7 @@
 
             if (sesion.getAttribute("Usuario") != null) { %>
         <% Usuario usuario = (Usuario) sesion.getAttribute("Usuario"); %>
-        <link rel="stylesheet" href="estilos.css"/>
+        <link rel="stylesheet" href="css/estilos.css"/>
         
         <header>
             <nav>
@@ -39,7 +39,7 @@
                 </ul>
             </nav>
             <a href="ServletLogoff" class="logout">Cerrar Sesión</a>
-            <p><%= usuario.getNombre() %></p>
+            <p><%= usuario.getNombreReal() %></p>
         </header>
         
         <form action="ServletDatos" method="post">
@@ -50,13 +50,13 @@
                 <input type="text" name="CodCuenta" placeholder="Código de Cuenta" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
+                <input type="text" name="DocCli" placeholder="Documento" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="TipoCuenta" placeholder="Tipo de Cuenta" class="campo" required>
+                <input type="text" name="TipoCuenta" placeholder="Tipo de Cuenta" class="campo">
             </div>
             <div class="form1">
-                <input type="number" name="Saldo" placeholder="Saldo" class="campo" required>
+                <input type="number" name="Saldo" placeholder="Saldo" class="campo">
             </div>
             <button type="submit" class="btn-main" name="btn-main-cuentas">
                 Guardar Registro
@@ -75,7 +75,7 @@
             String nombreTabla = nombreOriginal.replace("btn-main-", "");
             String[] camposFinales = new String[]{"CodCuenta", "DocCli", "TipoCuenta", "Saldo"};
 
-            Tabla tabla = data.consultarDatos(nombreTabla, camposFinales);
+            Tabla tabla = data.consultarDatos(nombreTabla, camposFinales, usuario);
             ArrayList<String[]> valores = tabla.getValoresTotales();
         %>
         <table>
@@ -102,7 +102,7 @@
 
         <section>
             <div class="contenedor">
-                <form action="index.html">
+                <form action="http://localhost:8080/Prueba">
                     <div class="log">
                         <h2>Debe iniciar sesión para continuar</h2>
                     </div>

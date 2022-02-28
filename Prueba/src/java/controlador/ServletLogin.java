@@ -43,9 +43,9 @@ public class ServletLogin extends HttpServlet {
 
         String nombre = request.getParameter("NomUsu");
         String clave = request.getParameter("Clave");
-        Usuario user = new Usuario(nombre, clave);
+        Usuario user = dao.comprobarLogin(nombre, clave);
         
-        if (dao.comprobarLogin(user.getNombre(), user.getClave())) {
+        if (user != null) {
             JOptionPane.showMessageDialog(null, "Sesión Iniciada");
             sesion.setAttribute("Usuario", user);
             response.sendRedirect("usuarios.jsp");

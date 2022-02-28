@@ -12,7 +12,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Formulario</title>
@@ -25,7 +25,7 @@
 
             if (sesion.getAttribute("Usuario") != null) { %>
         <% Usuario usuario = (Usuario) sesion.getAttribute("Usuario");%>
-        <link rel="stylesheet" href="css2/estilos.css"/>
+        <link rel="stylesheet" href="css/estilos.css"/>
         
         <header>
             <nav>
@@ -39,7 +39,7 @@
                 </ul>
             </nav>
             <a href="ServletLogoff" class="logout">Cerrar Sesión</a>
-            <p><%= usuario.getNombre()%></p>
+            <p><%= usuario.getNombreReal()%></p>
         </header>
 
         <form action="ServletDatos" method="post">
@@ -50,22 +50,22 @@
                 <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
             </div>
             <div class="form1">
-                <input type="text" name="NomCli" placeholder="Nombre" class="campo" required>
+                <input type="text" name="NomCli" placeholder="Nombre" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="ApeCli" placeholder="Apellido" class="campo" required>
+                <input type="text" name="ApeCli" placeholder="Apellido" class="campo">
             </div>
             <div class="form1">
-                <input type="email" name="CorreoCli" placeholder="Correo" class="campo" required>
+                <input type="email" name="CorreoCli" placeholder="Correo" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="CelularCli" placeholder="Celular" class="campo" required>
+                <input type="text" name="CelularCli" placeholder="Celular" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="SexoCli" placeholder="Sexo" class="campo" required>
+                <input type="text" name="SexoCli" placeholder="Sexo" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="FechaNacCli" placeholder="Fecha de Nacimiento" class="campo" required>
+                <input type="text" name="FechaNacCli" placeholder="Fecha de Nacimiento" class="campo">
             </div>
             <button type="submit" class="btn-main" name="btn-main-clientes">
                 Guardar Registro
@@ -84,7 +84,7 @@
             String nombreTabla = nombreOriginal.replace("btn-main-", "");
             String[] camposFinales = new String[]{"DocCli", "NomCli", "ApeCli", "CorreoCli", "CelularCli", "SexoCli", "FechaNacCli"};
 
-            Tabla tabla = data.consultarDatos(nombreTabla, camposFinales);
+            Tabla tabla = data.consultarDatos(nombreTabla, camposFinales, usuario);
             ArrayList<String[]> valores = tabla.getValoresTotales();
         %>
         <table>
@@ -111,7 +111,7 @@
         
         <section>
             <div class="contenedor">
-                <form action="index.html">
+                <form action="http://localhost:8080/Prueba">
                     <div class="log">
                         <h2>Debe iniciar sesión para continuar</h2>
                     </div>

@@ -21,20 +21,22 @@ public class DatosDAO {
     PreparedStatement ps;
     ResultSet rs;
     
-    public boolean comprobarLogin(String nombre, String clave) {
+    public Usuario comprobarLogin(String nombre, String clave) {
         try {
-            ps = cnn.prepareStatement("SELECT * FROM usuarios WHERE NomUsu = ? AND Clave = ?");
+            ps = cnn.prepareStatement("SELECT * FROM usuarios INNER JOIN clientes ON usuarios.DocCli = clientes.DocCli WHERE NomUsu = ? AND Clave = ?");
             ps.setString(1, nombre);
             ps.setString(2, clave);
             rs = ps.executeQuery();
             
             while(rs.next()) {
-                return true;
+                Integer documento = rs.getInt("DocCli");
+                return new Usuario(documento.toString(), (rs.getString("NomCli") + " " + rs.getString("ApeCli")), nombre, clave, rs.getString("Rol"), rs.getString("Estado"));
             }
-            return false;
+            
+            return null;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en la consulta " + ex);
-            return false;
+            return null;
         }
     }
     
@@ -62,10 +64,23 @@ public class DatosDAO {
         }
     }
     
-    public Tabla consultarDatos(String nombreTabla, String[] campos) {
+    public Tabla consultarDatos(String nombreTabla, String[] campos, Usuario usuario) {
         ArrayList<String[]> lista = new ArrayList<>();
+        String stm = "SELECT * FROM " + nombreTabla;
+        
         try {
-            ps = cnn.prepareStatement("SELECT * FROM " + nombreTabla);
+            if (usuario.getRol().equals("Cliente")) {
+                if (campos[0].equals("CodLinea")) {
+                    stm = "SELECT l.CodLinea, NomLinea, MontoMaxiCredito, PlazoMaxCred FROM lineas l "
+                            + "INNER JOIN creditos c ON l.CodLinea = c.CodLinea";
+                }
+                stm += " WHERE DocCli = ?";
+                
+                ps = cnn.prepareStatement(stm);
+                ps.setString(1, usuario.getDocumento());
+            } else {
+                ps = cnn.prepareStatement(stm);
+            }
             rs = ps.executeQuery();
             
             while (rs.next()) {
