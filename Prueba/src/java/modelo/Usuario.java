@@ -7,14 +7,16 @@ public class Usuario {
     private String clave;
     private String rol;
     private String estado;
+    private String imagen;
 
-    public Usuario(String documento, String nombreReal, String nombreUsuario, String clave, String rol, String estado) {
+    public Usuario(String documento, String nombreReal, String nombreUsuario, String clave, String rol, String estado, String imagen) {
         this.documento = documento;
         this.nombreReal = nombreReal;
         this.nombreUsuario = nombreUsuario;
         this.clave = clave;
         this.rol = rol;
         this.estado = estado;
+        this.imagen = imagen;
     }
     
     public String getDocumento() {
@@ -64,6 +66,13 @@ public class Usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
     
 }

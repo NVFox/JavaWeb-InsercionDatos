@@ -30,7 +30,7 @@ public class DatosDAO {
             
             while(rs.next()) {
                 Integer documento = rs.getInt("DocCli");
-                return new Usuario(documento.toString(), (rs.getString("NomCli") + " " + rs.getString("ApeCli")), nombre, clave, rs.getString("Rol"), rs.getString("Estado"));
+                return new Usuario(documento.toString(), (rs.getString("NomCli") + " " + rs.getString("ApeCli")), nombre, clave, rs.getString("Rol"), rs.getString("Estado"), rs.getString("Imagen"));
             }
             
             return null;

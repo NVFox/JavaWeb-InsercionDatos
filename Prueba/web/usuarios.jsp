@@ -27,9 +27,9 @@
             HttpSession sesion = request.getSession();
 
             if (sesion.getAttribute("Usuario") != null) { %>
-        <% Usuario usuario = (Usuario) sesion.getAttribute("Usuario"); %>
+        <% Usuario usuario = (Usuario) sesion.getAttribute("Usuario");%>
         <link rel="stylesheet" href="css/estilos.css"/>
-        
+
         <header>
             <nav>
                 <ul>
@@ -42,13 +42,12 @@
                 </ul>
             </nav>
             <a href="ServletLogoff" class="logout">Cerrar Sesión</a>
-            <p><%= usuario.getNombreReal() %></p>
+            <p><%= usuario.getNombreReal()%></p>
+            <img src=<%= usuario.getImagen() %> alt="imagenPerfil" width="40px" style="border-radius: 50%; margin-right: 20px" />
         </header>
-        
-        <form action="ServletDatos" method="post">
-            <div class="form1">
-                <legend>Formulario de Usuarios</legend>
-            </div>
+
+        <form action="ServletUsuarios" method="post" enctype="Multipart/form-data" >
+            <legend>Formulario de Usuarios</legend>
             <div class="form1">
                 <input type="text" name="DocCli" placeholder="Documento" class="campo" required>
             </div>
@@ -65,7 +64,10 @@
                 <input type="text" name="Estado" placeholder="Estado" class="campo">
             </div>
             <div class="form1">
-                <input type="text" name="Imagen" placeholder="Imagen" class="campo">
+                <div class="btn-file">
+                    <p>Subir imagen</p>
+                    <input type="file" name="Imagen" placeholder="Imagen" class="campo">
+                </div>
             </div>
             <button type="submit" class="btn-main" name="btn-main-usuarios">
                 Guardar Registro
@@ -83,6 +85,8 @@
             String nombreOriginal = "btn-main-usuarios";
             String nombreTabla = nombreOriginal.replace("btn-main-", "");
             String[] camposFinales = new String[]{"DocCli", "NomUsu", "Clave", "Rol", "Estado", "Imagen"};
+            sesion.setAttribute("nombre", nombreTabla);
+            sesion.setAttribute("campos", camposFinales);
 
             Tabla tabla = data.consultarDatos(nombreTabla, camposFinales, usuario);
             ArrayList<String[]> valores = tabla.getValoresTotales();
@@ -100,7 +104,11 @@
                 <tr>
                     <% String[] valoresIndividuales = valores.get(i); %>
                     <% for (int x = 0; x < valoresIndividuales.length; x++) {%>
+                    <% if (x == (valoresIndividuales.length - 1)) { %>
+                    <td><img src=<%= valoresIndividuales[x]%> alt=<%= valoresIndividuales[x].replaceAll("imagenes/(\\d+)", "") %> width="100px" /></td>
+                        <% } else {%>
                     <td><%= valoresIndividuales[x]%></td>
+                    <% } %>
                     <% } %>
                 </tr>
                 <% } %>
@@ -108,7 +116,7 @@
         </table>
         <% } else { %>
         <link rel="stylesheet" href="./css/login.css"/>
-        
+
         <section>
             <div class="contenedor">
                 <form action="http://localhost:8080/Prueba">
